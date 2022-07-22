@@ -1,29 +1,23 @@
 import React from 'react'
 
-export default function Result({SearchData}) {
-  console.log(SearchData)
-
+export default function Result({searchData}) {
+  
 
   return (
     <>
         <div className="result_show">
-          <div className="count"><span>About {78952400} results ({0.29} seconds) </span></div>
+          <div className="count"><span>About {searchData.searchInfo.totalResults} results ({searchData.searchInfo.formattedSearchTime} seconds) </span></div>
+        
           <div className='map'>
-            <div className='show'>
-              <span>https://www.facebook.com</span>
-              <a href='https://www.facebook.com'> Facebook - log in or sign up</a>
-              <p>Create an account or log into Facebook. Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.</p>
-            </div>
-            <div className='show'>
-              <span>https://www.facebook.com</span>
-              <a href='https://www.facebook.com'> Facebook - log in or sign up</a>
-              <p>Create an account or log into Facebook. Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.</p>
-            </div>
-            <div className='show'>
-              <span>https://www.facebook.com</span>
-              <a href='https://www.facebook.com'> Facebook - log in or sign up</a>
-              <p>Create an account or log into Facebook. Connect with friends, family and other people you know. Share photos and videos, send messages and get updates.</p>
-            </div>
+            {
+              searchData.searchResults.map((element)=>{
+                return <div className='show'>
+                <span>{element.displayLink}</span>
+                <a target="_blank" href={element.link}> {element.title}</a>
+                <p>{element.snippet}</p>
+              </div>
+              })
+            }
           </div>
         </div>
     </>

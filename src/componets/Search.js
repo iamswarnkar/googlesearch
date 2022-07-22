@@ -18,15 +18,12 @@ export default function Search(props) {
 
 
 
-
-
   const apiKey = "AIzaSyCwkzge8d2YRf3a1hq2TWrzjCLn5rIkJE4";
   const cxKey = "c24df3559b293a859";
 
   const apiCalled = async () =>{
     axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cxKey}&q=${data}`)
     .then(res=>{
-     console.log(res)
      setSearchData(prevState => ({
       ...prevState,
       searchResults: res.data.items,
@@ -103,7 +100,7 @@ export default function Search(props) {
             </div>
           </div>
         </div>
-        <Result  searchData={searchData} />
+        <Result searchData={searchData} />
       </div>
     </>
   );
