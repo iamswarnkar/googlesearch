@@ -9,38 +9,49 @@ import Result from "./Result";
 import axios from "axios";
 
 export default function Search(props) {
-  const [data, setData] = useState(props?.location?.state?.searchValue);
+  const [data, setData] = useState(props.location.state.searchValue);
+  const [searchData, setSearchData] = useState({
+    searchResults:[],
+    searchInfo:[]
+  });
+
+
+
 
 
 
   const apiKey = "AIzaSyCwkzge8d2YRf3a1hq2TWrzjCLn5rIkJE4";
   const cxKey = "c24df3559b293a859";
 
-  const apiCalled = () =>{
+  const apiCalled = async () =>{
     axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cxKey}&q=${data}`)
     .then(res=>{
      console.log(res)
-
+     setSearchData(prevState => ({
+      ...prevState,
+      searchResults: res.data.items,
+      searchInfo: res.data.searchInformation
+    }));
+     
+     
     }).catch(error=>{
       console.log('code is in error',error)
     })
   }
 
-  const handleKeyPress = (e) => {
-    console.log("key code ",e.key)
-    if (e.keycode === 13) {
-      console.log("enter Clicked")
-      apiCalled();
-    }else{
-      let res = e.target.value;
-      setData(res);
+  const keyPress = async (e) =>{
+    if (e.key === "Enter") {
+      await apiCalled();
     }
   }
+
+  const handleKeyPress = (e) => {
+    setData(e.target.value)
+  }
   
-  // useEffect(()=>{
-  //   apiCalled();
-  // },[data])
-  
+  useEffect(()=>{
+    apiCalled();
+  },[])
 
   return (
     <>
@@ -56,22 +67,22 @@ export default function Search(props) {
               <div className="form-group">
                 <input
                   onChange={handleKeyPress}
+                  onKeyPress={keyPress}
                   type="text"
                   value={data}
                   className="form-control"
                 />
               </div>
               <div className="action">
-                {/* {data && (
+                {data && (
+                  <>
                   <span onClick={()=>{setData('')}} className="close">
                     <AiOutlineClose />
                   </span>
-                )} */}
-                <span  className="close">
-                    <AiOutlineClose />
-                  </span>
-
-                <span className="line"></span>
+                  <span className="line"></span>
+                  </>
+                )}
+                
                 <span>
                   <BsFillMicFill />
                 </span>
@@ -92,7 +103,7 @@ export default function Search(props) {
             </div>
           </div>
         </div>
-        <Result  />
+        <Result  searchData={searchData} />
       </div>
     </>
   );

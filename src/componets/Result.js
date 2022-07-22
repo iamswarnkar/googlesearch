@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function Result(sinfo) {
-  console.log(sinfo)
+export default function Result({SearchData}) {
+  console.log(SearchData)
+
+
   return (
     <>
         <div className="result_show">

@@ -232,3 +232,16 @@ footer ul li{
 .search_main .result_show .show p{
   margin: 0;
 }
+
+
+
+@media screen and (max-width:916px) {
+  .search_main .search_hearder .search_filed{
+    width: 400px;
+  }
+
+  .search_main .result_show {
+    padding: 15px 27px 10px 90px;
+}
+  
+}

@@ -3,25 +3,19 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { BsFillMicFill } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 
-//const speechRecognition = window.speechRecognition || window.webkitspeechRecognition;
-// const mic = new SpeechRecognition();
-
-// mic.continuous = true;
-// mic.interimResults = true;
-// mic.lang = "en-US";
 
 export default function Home() {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
 
   const history = useHistory();
   const searchData = (e) => {
     e.preventDefault();
-    if (searchValue || e.key === "Enter")
+    if (searchValue != '' || e.key === "Enter")
       history.push({ pathname: "/search", state:{ searchValue } });
   };
   const keyPress = (e) => {
     if (e.key === "Enter") {
-      if (searchValue)
+      if (searchValue != '')
         history.push({ pathname: "/search", state: { searchValue } });
     }
   };
