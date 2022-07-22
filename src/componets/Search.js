@@ -50,6 +50,8 @@ export default function Search(props) {
     apiCalled();
   },[])
 
+ 
+
   return (
     <>
       <div className="search_main">
@@ -100,7 +102,7 @@ export default function Search(props) {
             </div>
           </div>
         </div>
-        <Result searchData={searchData} />
+        <Result  searchData={searchData} />
       </div>
     </>
   );
